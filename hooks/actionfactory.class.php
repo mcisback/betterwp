@@ -2,7 +2,7 @@
 
 namespace BetterWP\Hooks;
 
-use BetterWP\Pattern\FactorableAbstract as FactorableAbstract;
+use BetterWP\Pattern\FactorableAbstract;
 
 /**
  * TODO: function remove shortcode

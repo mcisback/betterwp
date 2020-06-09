@@ -2,7 +2,7 @@
 
 namespace BetterWP\Http;
 
-use BetterWP\Http\SessionContainer as SessionContainer;
+use BetterWP\Http\SessionContainer;
 /**
  * TODO: everything
  */

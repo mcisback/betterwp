@@ -2,7 +2,7 @@
 
 namespace BetterWP\Hooks;
 
-use BetterWP\Pattern\HookableAbstact as HookableAbstract;
+use BetterWP\Pattern\HookableAbstact;
 
 /**
  * TODO: everything

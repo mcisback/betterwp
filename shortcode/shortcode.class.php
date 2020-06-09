@@ -2,7 +2,7 @@
 
 namespace BetterWP\Shortcode;
 
-use BetterWP\Pattern\HookableAbstract as HookableAbstract;
+use BetterWP\Pattern\HookableAbstract;
 
 class Shortcode extends HookableAbstract {
 

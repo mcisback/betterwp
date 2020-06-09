@@ -3,7 +3,7 @@
 namespace BetterWP\Shortcode;
 
 //use BetterWP\Shortcode\Shortcode as Shortcode;
-use BetterWP\Pattern\FactorableAbstract as FactorableAbstract;
+use BetterWP\Pattern\FactorableAbstract;
 
 /**
  * TODO: function remove shortcode
