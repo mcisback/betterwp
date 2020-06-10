@@ -9,26 +9,37 @@ abstract class FactorableAbstract  {
     protected static $hookables_container = [];
     protected static $hookable_class = '';
 
-    static function add( $cb ){
+    public static function add( $cb, ...$params ){
         
         if(is_callable($cb)) {
         
             $hookable = $cb(new static::$hookable_class());
-            $hookable->register();
+            $hookable->register(...$params);
 
             static::$hookables_container[ $hookable->key ] = $hookable;
         
         } elseif (is_object($cb)) {
             
             if(is_a($cb, static::$hookable_class)) {
-                $cb->register();
+                $cb->register(...$params);
             }
         
         }
     
     }
 
-    static function del( $key ) {
+    public static function add_many( $many ) {
+        foreach($many as $key => $cb) {
+            $hookable = new static::$hookable_class();
+            $hookable->key = $key;
+            $hookable->callback = $cb;
+            $hookable->register();
+
+            static::$hookables_container[ $key ] = $hookable;
+        }
+    }
+
+    public static function del( $key ) {
 
         if( static::exists( $key ) ) {
     
@@ -40,7 +51,7 @@ abstract class FactorableAbstract  {
     
     }
 
-    static function do( string $key ) {
+    public static function do( string $key ) {
         if( static::exists( $key ) ) {
             
             self:$hookables[ $key ]->do();
@@ -48,15 +59,15 @@ abstract class FactorableAbstract  {
         }
     }
 
-    static function exists( string $key ) {
+    public static function exists( string $key ) {
         return array_key_exists( $key, static::$hookables_container );
     }
 
-    static function get( string $key ) {
+    public static function get( string $key ) {
         return static::$hookables_container[ $key ];
     }
 
-    static function unset( string $key ) {
+    public static function unset( string $key ) {
         unset( static::$hookables_container[ $key ] );
     }
 }

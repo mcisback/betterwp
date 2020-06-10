@@ -2,29 +2,35 @@
 
 namespace BetterWP\User;
 
+use BetterWP\User\UserWrapper;
 /**
- * TODO: is_admin, is_super_admin
+ * TODO: is_admin, is_super_admin, get user by (search user)
  */
 class User {
     //public static $wp_user;
 
-    public static function is_logged() {
-        return is_user_logged_in() === true || get_current_user_id() !== 0;
-    }
-
     public static function get( $user_id, ...$params ) {
-        return new WP_User( $user_id, ...$params );
+        return new UserWrapper( $user_id, ...$params );
     }
 
     public static function current() {
-        return wp_get_current_user();
+        return new UserWrapper( get_current_user_id() );
     }
 
-    public static function is_admin() {
-    	return self::is_logged() && self::can( 'administrator' );
+    public static function create( string $username, string $password, string $email = '' ) {
+        // wp_create_user( string $username, string $password, string $email = '' )
+        $user_id = wp_create_user( $username, $password, $email );
+
+        if(!is_wp_error( $user_id ) ) {
+            return new UserWrapper( $user_id );
+        } else {
+            echo $user_id->get_error_message();
+
+            return null;
+        }
     }
 
-    public static function can( $cap ) {
-        return current_user_can( $cap );
+    public static function delete( $user_id, $reassign_id=null ) {
+        return self::get( $user_id )->delete( $reassign_id );
     }
 }

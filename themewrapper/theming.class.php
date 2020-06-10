@@ -14,6 +14,10 @@ class Theming {
         return get_header( $name );
     }
 
+    public static function add_support( string $feature, ...$params ) {
+        return add_theme_support( $feature, ...$params );
+    }
+
     /* public static function getHead( string $name = null ) {
         return wp_head();
     } */
